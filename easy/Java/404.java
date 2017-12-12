@@ -19,7 +19,7 @@ There are two left leaves in the binary tree, with values 9 and 15 respectively.
  *     TreeNode(int x) { val = x; }
  * }
  */
-class Solution {
+class 404 {
     
 //     public int sumOfLeftLeaves(TreeNode root) {
 //         return sumOfLeftLeavesHelper(root, false);
