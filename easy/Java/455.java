@@ -24,8 +24,8 @@ You need to output 2.*/
 class 455 {
     public int findContentChildren(int[] g, int[] s) {
         int i = 0, j = 0;
-        Array.sort(g);
-        Array.sort(s);
+        Arrays.sort(g);
+        Arrays.sort(s);
         while(i < g.length && j < s.length) {
             if(g[i] <= s[j]) ++i;
             ++j;
