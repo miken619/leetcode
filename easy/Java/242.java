@@ -10,7 +10,7 @@ You may assume the string contains only lowercase alphabets.
 Follow up:
 What if the inputs contain unicode characters? How would you adapt your solution to such case?*/
 
-class Solution {
+class 242 {
     public boolean isAnagram(String s, String t) {
 //        if(s == null || t == null || s.length() != t.length()) return false;
         
