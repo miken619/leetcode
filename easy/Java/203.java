@@ -14,13 +14,10 @@ Return: 1 --> 2 --> 3 --> 4 --> 5*/
  */
 class Solution {
     public ListNode removeElements(ListNode head, int val) {
-//         while(head != null && head.val == val) {
-//             ListNode temp = head;
-//             head = head.next;
-//             temp.next = null;
-//         }
+//         if (head == null) return null;
+        
 //         ListNode curr = head;
-//         while(curr != null && curr.next != null) {
+//         while(curr.next != null) {
 //             if(curr.next.val == val) {
 //                 ListNode temp = curr.next;
 //                 curr.next = curr.next.next;
@@ -28,7 +25,7 @@ class Solution {
 //             }else curr = curr.next;
 //         }
         
-//         return head;
+//         return head.val == val ? head.next : head;   
         
         if(head == null) return null;
         
