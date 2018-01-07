@@ -1,62 +1,81 @@
-/*Given the root of a tree, you are asked to find the most frequent subtree sum. The subtree sum of a node is defined as the sum of all the node values formed by the subtree rooted at that node (including the node itself). So what is the most frequent subtree sum value? If there is a tie, return all the values with the highest frequency in any order.
+/*Implement a MapSum class with insert, and sum methods.
 
-Examples 1
-Input:
+For the method insert, you'll be given a pair of (string, integer). The string represents the key and the integer represents the value. If the key already existed, then the original key-value pair will be overridden to the new one.
 
-  5
- /  \
-2   -3
-return [2, -3, 4], since all the values happen only once, return all of them in any order.
-Examples 2
-Input:
+For the method sum, you'll be given a string representing the prefix, and you need to return the sum of all the pairs' value whose key starts with the prefix.
 
-  5
- /  \
-2   -5
-return [2], since 2 happens twice, however -5 only occur once.
-Note: You may assume the sum of values in any subtree is in the range of 32-bit signed integer.*/
+Example 1:
+Input: insert("apple", 3), Output: Null
+Input: sum("ap"), Output: 3
+Input: insert("app", 2), Output: Null
+Input: sum("ap"), Output: 5*/
 
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode(int x) { val = x; }
- * }
- */
-class Solution {
-    int max = Integer.MIN_VALUE;
-    
-    public int[] findFrequentTreeSum(TreeNode root) {
-        Map<Integer, Integer> map = new HashMap<>();
-        findFrequentTreeSumUtil(root, map);
-        List<Integer> list = new ArrayList<>();
+class MapSum {
+    class TrieNode {
+        Map<Character, TrieNode> children;
+        boolean isWord;
+        int val;
         
-        for(Map.Entry<Integer, Integer> entry: map.entrySet()) {
-            if(entry.getValue() == max) list.add(entry.getKey());
+        TrieNode() {
+            children = new HashMap<>();
+            isWord = false;
+            val = 0;
+        }
+    }
+    
+    TrieNode root;
+
+    /** Initialize your data structure here. */
+    public MapSum() {
+        root = new TrieNode();
+    }
+    
+    public void insert(String key, int val) {
+        TrieNode curr = root;
+        
+        for(char c: key.toCharArray()) {
+            TrieNode next = curr.children.get(c);
+            
+            if(next == null) {
+                next = new TrieNode();
+                curr.children.put(c, next);
+            }
+            
+            curr = next;
         }
         
-        int[] result = new int[list.size()];        
-        
-        for(int i = 0; i < list.size(); ++i) result[i] = list.get(i);
-        
-        return result;
-        
+        curr.isWord = true;
+        curr.val = val;
     }
     
-    public int findFrequentTreeSumUtil(TreeNode root, Map<Integer, Integer> map) {
-        if(root == null) return 0;
+    public int sum(String prefix) {
+         TrieNode curr = root;
         
-        int left = findFrequentTreeSumUtil(root.left, map);
-        int right = findFrequentTreeSumUtil(root.right, map);
-
-        int sum = root.val + left + right;
-        int value = map.getOrDefault(sum, 0) + 1;
+         for(char c: prefix.toCharArray()) {
+            TrieNode next = curr.children.get(c);
+             
+            if(next == null) return 0;
+             
+            curr = next;
+        }
         
-        max = Math.max(max, value);
-        map.put(sum, value);
+        return dfs(curr);
+    }
+    
+    public int dfs(TrieNode root) {
+        int sum = 0;
         
-        return sum;
+        for(char c: root.children.keySet()) {
+            sum += dfs(root.children.get(c));
+        }
+        
+        return sum += root.val;
     }
 }
+
+/**
+ * Your MapSum object will be instantiated and called as such:
+ * MapSum obj = new MapSum();
+ * obj.insert(key,val);
+ * int param_2 = obj.sum(prefix);
+ */
