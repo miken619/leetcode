@@ -2,7 +2,13 @@
 
 The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.*/
 
-class 020 {
+
+//Solution
+
+/*
+
+*/
+class Solution {
     public boolean isValid(String s) {
         Stack<Character> stack = new Stack<>();
         
