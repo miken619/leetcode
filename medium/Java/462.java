@@ -19,7 +19,7 @@ class Solution {
     public int minMoves2(int[] nums) {
 
         
-//            int median = quickselect(nums, nums.length/2+1, 0, nums.length - 1);
+//             int median = quickselect(nums, nums.length/2+1, 0, nums.length - 1);
 //             int sum = 0;
 //             for(int num: nums) sum += Math.abs(median - num);
 
